@@ -12,13 +12,12 @@ const debugObj = {
   earth: {
     atmosphereDayColor: "#00aaff",
     atmosphereTwilightColor: "#ff6600",
-  }
-}
+  },
+};
 const gui = new GUI({ width: 300 });
 if (window.location.hash !== "#debug") {
-  gui.hide()
+  gui.hide();
 }
-
 
 // Canvas
 const canvas = document.querySelector("canvas#canvas") as HTMLCanvasElement;
@@ -38,9 +37,10 @@ const earthNightTexture = textureLoader.load("/textures/earth/night.jpg");
 earthNightTexture.colorSpace = THREE.SRGBColorSpace;
 earthNightTexture.anisotropy = 8;
 
-const earthSpecularCloudsTexture = textureLoader.load("/textures/earth/specularClouds.jpg");
+const earthSpecularCloudsTexture = textureLoader.load(
+  "/textures/earth/specularClouds.jpg"
+);
 earthNightTexture.anisotropy = 8;
-
 
 // Earth: Mesh
 const earthGeometry = new THREE.SphereGeometry(2, 64, 64);
@@ -51,29 +51,51 @@ const earthMaterial = new THREE.ShaderMaterial({
     uDayTexture: new THREE.Uniform(earthDayTexture),
     uNightTexture: new THREE.Uniform(earthNightTexture),
     uSpecularCloudsTexture: new THREE.Uniform(earthSpecularCloudsTexture),
-    uAtmosphereDayColor: new THREE.Uniform(new THREE.Color(debugObj.earth.atmosphereDayColor)),
-    uAtmosphereTwilightColor: new THREE.Uniform(new THREE.Color(debugObj.earth.atmosphereTwilightColor))
-  }
+    uAtmosphereDayColor: new THREE.Uniform(
+      new THREE.Color(debugObj.earth.atmosphereDayColor)
+    ),
+    uAtmosphereTwilightColor: new THREE.Uniform(
+      new THREE.Color(debugObj.earth.atmosphereTwilightColor)
+    ),
+  },
 });
 const earth = new THREE.Mesh(earthGeometry, earthMaterial);
 scene.add(earth);
 const guiEarth = gui.addFolder("Earth");
-guiEarth.addColor(debugObj.earth, "atmosphereDayColor").name("Atmosphere Day").onChange(() => {
-  earthMaterial.uniforms.uAtmosphereDayColor.value.set(debugObj.earth.atmosphereDayColor);
-  atmosphereMaterial.uniforms.uAtmosphereDayColor.value.set(debugObj.earth.atmosphereDayColor);
-});
-guiEarth.addColor(debugObj.earth, "atmosphereTwilightColor").name("Atmosphere Twilight").onChange(() => {
-  earthMaterial.uniforms.uAtmosphereTwilightColor.value.set(debugObj.earth.atmosphereTwilightColor);
-  atmosphereMaterial.uniforms.uAtmosphereDayColor.value.set(debugObj.earth.atmosphereDayColor);
-});
+guiEarth
+  .addColor(debugObj.earth, "atmosphereDayColor")
+  .name("Atmosphere Day")
+  .onChange(() => {
+    earthMaterial.uniforms.uAtmosphereDayColor.value.set(
+      debugObj.earth.atmosphereDayColor
+    );
+    atmosphereMaterial.uniforms.uAtmosphereDayColor.value.set(
+      debugObj.earth.atmosphereDayColor
+    );
+  });
+guiEarth
+  .addColor(debugObj.earth, "atmosphereTwilightColor")
+  .name("Atmosphere Twilight")
+  .onChange(() => {
+    earthMaterial.uniforms.uAtmosphereTwilightColor.value.set(
+      debugObj.earth.atmosphereTwilightColor
+    );
+    atmosphereMaterial.uniforms.uAtmosphereDayColor.value.set(
+      debugObj.earth.atmosphereDayColor
+    );
+  });
 
 // Atmosphere
 const atmosphereMaterial = new THREE.ShaderMaterial({
   vertexShader: atmosphereVertexShader,
   fragmentShader: atmosphereFragmentShader,
   uniforms: {
-    uAtmosphereDayColor: new THREE.Uniform(new THREE.Color(debugObj.earth.atmosphereDayColor)),
-    uAtmosphereTwilightColor: new THREE.Uniform(new THREE.Color(debugObj.earth.atmosphereTwilightColor))
+    uAtmosphereDayColor: new THREE.Uniform(
+      new THREE.Color(debugObj.earth.atmosphereDayColor)
+    ),
+    uAtmosphereTwilightColor: new THREE.Uniform(
+      new THREE.Color(debugObj.earth.atmosphereTwilightColor)
+    ),
   },
   side: THREE.BackSide,
   transparent: true,
@@ -113,7 +135,7 @@ const tick = (timestamp: number) => {
   const elapsedTime = timer.getElapsed();
 
   // Update Earth
-  earth.rotation.y = elapsedTime * 0.1
+  earth.rotation.y = elapsedTime * 0.1;
 
   // Update controls
   orbitContorls.update();
@@ -142,14 +164,14 @@ const toggleFullScreen = () => {
   } else {
     document.exitFullscreen();
   }
-}
+};
 
 window.addEventListener("dblclick", () => {
-  toggleFullScreen()
-})
+  toggleFullScreen();
+});
 
 window.addEventListener("keydown", (event: KeyboardEvent) => {
   if (event.key === "Enter") {
     toggleFullScreen();
   }
-})
+});
