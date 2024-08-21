@@ -1,5 +1,5 @@
-uniform vec3 uAtomosphereDayColor;
-uniform vec3 uAtomosphereTwilightColor;
+uniform vec3 uAtmosphereDayColor;
+uniform vec3 uAtmosphereTwilightColor;
 
 varying vec3 vNormal;
 varying vec3 vPosition;
@@ -14,10 +14,10 @@ void main()
   vec3 uSunDirection = vec3(0.0, 0.0, 1.0);
   float sunOrientation = dot(uSunDirection, normal);
 
-  // Atomosphere
-  float atomosphereDayMix = smoothstep(-0.5, 1.0, sunOrientation);
-  vec3 atomosphereColor = mix(uAtomosphereTwilightColor, uAtomosphereDayColor, atomosphereDayMix);
-  color += atomosphereColor;
+  // Atmosphere
+  float atmosphereDayMix = smoothstep(-0.5, 1.0, sunOrientation);
+  vec3 atmosphereColor = mix(uAtmosphereTwilightColor, uAtmosphereDayColor, atmosphereDayMix);
+  color += atmosphereColor;
 
   // Edge Alpha
   float edgeAlpha = dot(viewDirection, normal);

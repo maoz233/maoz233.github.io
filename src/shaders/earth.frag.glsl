@@ -1,8 +1,8 @@
 uniform sampler2D uDayTexture;
 uniform sampler2D uNightTexture;
 uniform sampler2D uSpecularCloudsTexture;
-uniform vec3 uAtomosphereDayColor;
-uniform vec3 uAtomosphereTwilightColor;
+uniform vec3 uAtmosphereDayColor;
+uniform vec3 uAtmosphereTwilightColor;
 
 varying vec2 vUv;
 varying vec3 vNormal;
@@ -36,13 +36,13 @@ void main()
 
   // Atmosphere
   float atmosphereDayMix = smoothstep(-0.5, 1.0, sunOrientation);
-  vec3 atmosphereColor = mix(uAtmosphereTwilightColor, uAtomosphereDayColor, atmosphereDayMix);
-  color = mix(color, atomosphereColor, fresnel * atomosphereDayMix);
+  vec3 atmosphereColor = mix(uAtmosphereTwilightColor, uAtmosphereDayColor, atmosphereDayMix);
+  color = mix(color, atmosphereColor, fresnel * atmosphereDayMix);
 
   // Specular
   vec3 reflection = reflect(-uSunDirection, normal);
   float specular = pow(max(-dot(reflection, viewDirection), 0.0), 32.0) * specularCloudsColor.r;
-  vec3 specularColor = mix(vec3(1.0), atomosphereColor, fresnel);
+  vec3 specularColor = mix(vec3(1.0), atmosphereColor, fresnel);
   color += specular * specularColor;
 
   // Final color
