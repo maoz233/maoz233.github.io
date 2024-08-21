@@ -29,7 +29,7 @@ const config: webpack.Configuration = {
         exclude: /node_modules/,
       },
       {
-        test: /\.wgsl$/,
+        test: /\.glsl$/,
         use: "raw-loader",
       },
     ],
