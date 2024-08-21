@@ -5,4 +5,4 @@ Live Demo:
 [https://maoz233.github.io/](https://maoz233.github.io/)
 
 To see debug GUI:
-[https://maoz233.github.io/#debug][https://maoz233.github.io/#debug]
+[https://maoz233.github.io/#debug](https://maoz233.github.io/#debug)
