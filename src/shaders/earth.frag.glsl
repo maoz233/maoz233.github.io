@@ -34,9 +34,9 @@ void main()
   // Fresnel
   float fresnel = pow(dot(viewDirection, normal) + 1.0, 2.0);
 
-  // Atomosphere
-  float atomosphereDayMix = smoothstep(-0.5, 1.0, sunOrientation);
-  vec3 atomosphereColor = mix(uAtomosphereTwilightColor, uAtomosphereDayColor, atomosphereDayMix);
+  // Atmosphere
+  float atmosphereDayMix = smoothstep(-0.5, 1.0, sunOrientation);
+  vec3 atmosphereColor = mix(uAtmosphereTwilightColor, uAtomosphereDayColor, atmosphereDayMix);
   color = mix(color, atomosphereColor, fresnel * atomosphereDayMix);
 
   // Specular
